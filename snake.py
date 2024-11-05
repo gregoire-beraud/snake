@@ -11,7 +11,7 @@ import pygame as pg
 
 # on initialise pygame et on crée une fenêtre de 400x300 pixels
 pg.init()
-screen = pg.display.set_mode((400, 300))
+screen = pg.display.set_mode((30*20, 30*20))
 
 # on crée aussi un objet "horloge"
 clock = pg.time.Clock()
@@ -36,10 +36,31 @@ while running == True:
             if event.key == pg.K_q:
                 running = False
 
-    # on génère une couleur (Rouge, Vert, Bleu) au hasard
-    random_color = (randint(0, 255), randint(0, 255), randint(0, 255))
-    # et on colorie l'écran avec cette couleur
-    screen.fill(random_color)
-
+   # les coordonnées de rectangle que l'on dessine
+    width = 20 # largeur du rectangle en pixels
+    height = 20 # hauteur du rectangle en pixels
+    
+    # appel à la méthode draw.rect()
+    color = (255, 255, 255) # couleur blanche
+    snakecolor = (0,255,0)
+    for i in range(15) :
+        for j in range(30) :
+            if j%2 == 1 :
+                x = 2*i*height # coordonnée x (colonnes) en pixels
+                y = j*width # coordonnée y (lignes) en pixels
+                rect = pg.Rect(x, y, width, height)
+                pg.draw.rect(screen, color, rect)
+            else :
+                x = 2*i*height + 20 # coordonnée x (colonnes) en pixels
+                y = j*width # coordonnée y (lignes) en pixels
+                rect = pg.Rect(x, y, width, height)
+                pg.draw.rect(screen, color, rect)
+    snake = [
+    (10, 15),
+    (11, 15),
+    (12, 15),
+]
+    for i in range(len(snake)) :
+        pg.draw.rect(screen,snakecolor,pg.Rect(snake[i][0]*20,snake[i][1]*20,width,height))
     # enfin on met à jour la fenêtre avec tous les changements
     pg.display.update()
