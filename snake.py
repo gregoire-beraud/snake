@@ -15,14 +15,18 @@ screen = pg.display.set_mode((30*20, 30*20))
 
 # on crée aussi un objet "horloge"
 clock = pg.time.Clock()
-
+snake = [
+    (10, 15),
+    (11, 15),
+    (12, 15),
+]
 # enfin on boucle à l'infini pour faire le rendu de chaque image
 running = True
 while running == True:
     # l'objet "clock" permet de limiter le nombre d'images par secondes
     # ici pour cette démo on demande 1 image par seconde
     clock.tick(1)
-
+    
     # il faut traiter les événements a minima
     # pour que la fenêtre s'affiche
     for event in pg.event.get():
@@ -43,6 +47,7 @@ while running == True:
     # appel à la méthode draw.rect()
     color = (255, 255, 255) # couleur blanche
     snakecolor = (0,255,0)
+    screen.fill((0,0,0))
     for i in range(15) :
         for j in range(30) :
             if j%2 == 1 :
@@ -55,11 +60,11 @@ while running == True:
                 y = j*width # coordonnée y (lignes) en pixels
                 rect = pg.Rect(x, y, width, height)
                 pg.draw.rect(screen, color, rect)
-    snake = [
-    (10, 15),
-    (11, 15),
-    (12, 15),
-]
+
+    direction = (1,0)
+    
+    for i in range(len(snake)) :
+        snake[i] = tuple(a + b for a, b in zip(snake[i], direction))
     for i in range(len(snake)) :
         pg.draw.rect(screen,snakecolor,pg.Rect(snake[i][0]*20,snake[i][1]*20,width,height))
     # enfin on met à jour la fenêtre avec tous les changements
