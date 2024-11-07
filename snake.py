@@ -20,6 +20,8 @@ snake = [
     (11, 15),
     (12, 15),
 ]
+fruit = [randint(0,30),randint(0,30)]
+direction = (1,0)
 # enfin on boucle à l'infini pour faire le rendu de chaque image
 running = True
 while running == True:
@@ -36,8 +38,16 @@ while running == True:
             running = False
         # un type de pg.KEYDOWN signifie que l'on a appuyé une touche du clavier
         elif event.type == pg.KEYDOWN:
+            if event.key == pg.K_UP :
+                direction = (0,-1)
+            elif event.key == pg.K_DOWN :
+                direction = (0,1)
+            elif event.key == pg.K_LEFT :
+                direction = (-1,0)
+            elif event.key == pg.K_RIGHT :
+                direction = (1,0)
             # si la touche est "Q" on veut quitter le programme
-            if event.key == pg.K_q:
+            elif event.key == pg.K_q:
                 running = False
 
    # les coordonnées de rectangle que l'on dessine
@@ -61,11 +71,14 @@ while running == True:
                 rect = pg.Rect(x, y, width, height)
                 pg.draw.rect(screen, color, rect)
 
-    direction = (1,0)
+   
+
     
-    for i in range(len(snake)) :
-        snake[i] = tuple(a + b for a, b in zip(snake[i], direction))
+    snake.append(tuple(a + b for a, b in zip(snake[-1], direction)))
+    snake.pop(0)
     for i in range(len(snake)) :
         pg.draw.rect(screen,snakecolor,pg.Rect(snake[i][0]*20,snake[i][1]*20,width,height))
+
+    pg.draw.rect(screen,fruitcolor,pg.Rect(fruit[0]*20,fruit[1]*20,width,height))
     # enfin on met à jour la fenêtre avec tous les changements
     pg.display.update()
