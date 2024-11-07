@@ -28,8 +28,11 @@ running = True
 while running == True:
     # l'objet "clock" permet de limiter le nombre d'images par secondes
     # ici pour cette démo on demande 1 image par seconde
-    clock.tick(2)
-    
+    clock.tick(3)
+    if -1 in snake[0] :
+            running = False
+    elif 31 in snake[0] :
+            running = False 
     # il faut traiter les événements a minima
     # pour que la fenêtre s'affiche
     for event in pg.event.get():
@@ -53,9 +56,8 @@ while running == True:
     if fruit == snake[-1] :
         snake.insert(0,fruit)
         fruit = (randint(0,30),randint(0,30))
-    for i in snake :
-        if -1 in i :
-            running = False  
+    
+     
 
    # les coordonnées de rectangle que l'on dessine
     width = 20 # largeur du rectangle en pixels
@@ -81,7 +83,7 @@ while running == True:
    
 
     
-    snake.append(tuple(a + b for a, b in zip(snake[-1], direction)))
+    snake.append(tuple(a + b for a, b in zip(snake[-1], direction))) # type: ignore
     snake.pop(0)
     for i in range(len(snake)) :
         pg.draw.rect(screen,snakecolor,pg.Rect(snake[i][0]*20,snake[i][1]*20,width,height))
