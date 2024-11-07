@@ -20,14 +20,15 @@ snake = [
     (11, 15),
     (12, 15),
 ]
-fruit = [randint(0,30),randint(0,30)]
+fruit = (randint(0,30),randint(0,30))
 direction = (1,0)
+fruitcolor = (255,0,0)
 # enfin on boucle à l'infini pour faire le rendu de chaque image
 running = True
 while running == True:
     # l'objet "clock" permet de limiter le nombre d'images par secondes
     # ici pour cette démo on demande 1 image par seconde
-    clock.tick(1)
+    clock.tick(2)
     
     # il faut traiter les événements a minima
     # pour que la fenêtre s'affiche
@@ -49,6 +50,12 @@ while running == True:
             # si la touche est "Q" on veut quitter le programme
             elif event.key == pg.K_q:
                 running = False
+    if fruit == snake[-1] :
+        snake.insert(0,fruit)
+        fruit = (randint(0,30),randint(0,30))
+    for i in snake :
+        if -1 in i :
+            running = False  
 
    # les coordonnées de rectangle que l'on dessine
     width = 20 # largeur du rectangle en pixels
