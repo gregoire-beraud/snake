@@ -20,7 +20,7 @@ snake = [
     (11, 15),
     (12, 15),
 ]
-fruit = (randint(0,30),randint(0,30))
+FRUIT = (randint(0,30),randint(0,30))
 direction = (1,0)
 fruitcolor = (255,0,0)
 # enfin on boucle à l'infini pour faire le rendu de chaque image
@@ -53,9 +53,9 @@ while running == True:
             # si la touche est "Q" on veut quitter le programme
             elif event.key == pg.K_q:
                 running = False
-    if fruit == snake[-1] :
-        snake.insert(0,fruit)
-        fruit = (randint(0,30),randint(0,30))
+    if FRUIT == snake[-1] :
+        snake.insert(0,FRUIT)
+        FRUIT = (randint(0,30),randint(0,30))
     
      
 
@@ -88,6 +88,6 @@ while running == True:
     for i in range(len(snake)) :
         pg.draw.rect(screen,snakecolor,pg.Rect(snake[i][0]*20,snake[i][1]*20,width,height))
 
-    pg.draw.rect(screen,fruitcolor,pg.Rect(fruit[0]*20,fruit[1]*20,width,height))
+    pg.draw.rect(screen,fruitcolor,pg.Rect(FRUIT[0]*20,FRUIT[1]*20,width,height))
     # enfin on met à jour la fenêtre avec tous les changements
     pg.display.update()
