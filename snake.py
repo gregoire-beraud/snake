@@ -1,8 +1,3 @@
-"""
-le snake - v0
-on repeint l'écran à une période de 1 seconde
-et on a du mal à sortir du programme
-"""
 
 # les imports standard en premier
 from random import randint
